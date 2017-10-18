@@ -1,0 +1,52 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace P03.Sum_Adjacent_Equal_Numbers
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<double> nums = Console.ReadLine()
+                .Split()
+                .Select(double.Parse)
+                .ToList();
+
+            bool isEqual = true;
+
+            while (isEqual)
+            {
+                isEqual = false;
+
+                int index = 0;
+                double sum = 0;
+
+                for (int i = 1; i < nums.Count; i++)
+                {
+                    if (nums[i] == nums[i - 1])
+                    {
+                        index = i - 1;
+
+                        sum = nums[i] + nums[i - 1];
+
+                        isEqual = true;
+                        break;
+                    }
+                }
+
+                if (isEqual)
+                {
+                    nums.RemoveRange(index, 2);
+                    nums.Insert(index, sum);
+                }
+
+            }
+
+            Console.WriteLine(string.Join(" ", nums));
+
+        }
+    }
+}
