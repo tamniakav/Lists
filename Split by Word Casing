@@ -1,0 +1,89 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace P04.Split_by_Word_Casing
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<string> word = Console.ReadLine()
+                .Split(new char[] {',', ';', ':', '.', '!', '(', ')', '\"', '\'', '\\', '/', '[', ']', ' '},
+                StringSplitOptions.RemoveEmptyEntries)
+                .ToList();
+
+            List<string> upperCaseWords = new List<string>();
+            List<string> lowerCaseWords = new List<string>();
+            List<string> mixedCaseWords = new List<string>();
+            
+            foreach (var simb in word)
+            {
+                string wordcase = FindingUpperOrLower(simb);
+
+                switch (wordcase)
+                {
+                    case "upper": upperCaseWords.Add(simb); break;
+                    case "lower": lowerCaseWords.Add(simb); break;
+                    case "mixed": mixedCaseWords.Add(simb); break;
+                }
+            }
+
+            Console.Write("Lower-case: ");
+            Console.WriteLine(string.Join(", ", lowerCaseWords));
+            Console.Write("Mixed-case: ");
+            Console.WriteLine(string.Join(", ", mixedCaseWords));
+            Console.Write("Upper-case: ");
+            Console.WriteLine(string.Join(", ", upperCaseWords));
+        }
+
+        static string FindingUpperOrLower(string word)
+        {
+            int upper = 0;
+            int lower = 0;
+            int mix = 0;
+
+            string kindOfWord = string.Empty;
+
+            foreach (var item in word)
+            {
+                if (char.IsUpper(item))
+                {
+                    upper++;
+                }
+                else if (char.IsLower(item))
+                {
+                    lower++;
+                }
+                else if (char.IsNumber(item))
+                {
+                    mix++;
+                }
+                else 
+                {
+                    mix++;
+                }
+            }
+
+            if (mix > 0)
+            {
+                kindOfWord = "mixed";
+            }
+            else if (lower == 0)
+            {
+                kindOfWord = "upper";
+            }
+            else if (upper == 0)
+            {
+                kindOfWord = "lower";
+            }
+            else
+            {
+                kindOfWord = "mixed";
+            }
+            return kindOfWord;
+        }
+    }
+}
