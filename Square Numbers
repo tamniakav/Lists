@@ -1,0 +1,44 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace P06.Square_Numbers
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> numbers = Console.ReadLine()
+                .Split(' ')
+                .Select(int.Parse)
+                .ToList();
+
+            List<int> squareNumbers = new List<int>();
+
+            foreach (var digit in numbers)
+            {
+                double dNum = SquaredNumber(digit);
+
+                int iNum = (int)dNum;
+
+                if (iNum == dNum)
+                {
+                    squareNumbers.Add(digit);
+                }
+            }
+
+            squareNumbers.Sort((a,b) => b.CompareTo(a));
+
+            Console.WriteLine(string.Join(" ", squareNumbers));
+        }
+
+        static double SquaredNumber(int number)
+        {
+            double dNum = Math.Sqrt(number);
+
+            return dNum;
+        }
+    }
+}
